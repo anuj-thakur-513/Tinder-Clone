@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/drawable/standard_button_rounded.xml" value="0.1" />
+        <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/activity_login.xml" value="0.26666666666666666" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/activity_main.xml" value="0.1398148148148148" />
+        <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/activity_signup.xml" value="0.2861111111111111" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/activity_startup.xml" value="0.2861111111111111" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/item.xml" value="0.11736111111111111" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
