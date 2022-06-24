@@ -15,12 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tinder_clone_logo" />
+        app:srcCompat="@drawable/tinder_clone_logo"
+        android:contentDescription="@string/startup_logo_description" />
 
     <Button
         android:layout_width="@dimen/standard_width"
         android:layout_height="@dimen/standard_height"
         android:text="@string/startup_button_login"
+        style="@style/StandardButton"
         android:layout_gravity="center"
         android:onClick="onLogin"/>
 
@@ -29,5 +31,6 @@
         android:layout_height="@dimen/standard_height"
         android:text="@string/startup_button_signup"
         android:layout_gravity="center"
+        style="@style/StandardButton"
         android:onClick="onSignup"/>
 </LinearLayout>
