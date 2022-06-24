@@ -2,20 +2,11 @@ package com.example.tinderclone.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.example.tinderclone.R
 
-class StartupActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_startup)
-    }
-
-    fun onLogin(view: View){
-
-    }
-
-    fun onSignup(view: View){
-
+        setContentView(R.layout.activity_login)
     }
 }
