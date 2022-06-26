@@ -6,8 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tinderclone.R
+import com.example.tinderclone.activities.TinderCallback
 
 class MatchesFragment : Fragment() {
+    // variable for handling methods of TinderCallback interface
+    private var callback: TinderCallback? = null
+
+    fun setCallback(callback: TinderCallback){
+        this.callback = callback
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -13,18 +14,23 @@ import com.example.tinderclone.R
 import com.example.tinderclone.fragments.MatchesFragment
 import com.example.tinderclone.fragments.ProfileFragment
 import com.example.tinderclone.fragments.SwipeFragment
+import com.example.tinderclone.util.DATA_USERS
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.core.view.View
 import com.google.firebase.ktx.Firebase
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import kotlinx.android.synthetic.main.activity_tinder.*
 
-class TinderActivity : AppCompatActivity() {
+class TinderActivity : AppCompatActivity(), TinderCallback {
 
     // creating variables for firebase authorization
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val userId = firebaseAuth.currentUser?.uid
+    // database reference
+    private lateinit var userDatabase: DatabaseReference
 
     // creating variables for the fragments
     private var profileFragment: ProfileFragment? = null
@@ -39,6 +45,14 @@ class TinderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tinder)
+
+        // checking if user id is null or empty to signout
+        if(userId.isNullOrEmpty()){
+            onSignout()
+        }
+
+        // getting database reference in the variable
+        userDatabase = FirebaseDatabase.getInstance().reference.child(DATA_USERS)
 
         // dynamically creating new tabs in the tab layout
         profileTab = navigationTabs.newTab()
@@ -65,17 +79,30 @@ class TinderActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 when(tab){
                     profileTab -> {
+                        if(profileFragment == null){
+                            profileFragment = ProfileFragment()
+                            profileFragment!!.setCallback(this@TinderActivity)
+                        }
                         replaceFragment(profileFragment!!)
                     }
                     swipeTab ->{
+                        if(swipeFragment == null){
+                            swipeFragment = SwipeFragment()
+                            swipeFragment!!.setCallback(this@TinderActivity)
+                        }
                         replaceFragment(swipeFragment!!)
                     }
                     matchesTab ->{
+                        if(matchesFragment == null){
+                            matchesFragment = MatchesFragment()
+                            matchesFragment!!.setCallback(this@TinderActivity)
+                        }
                         replaceFragment(matchesFragment!!)
                     }
                 }
             }
         })
+        profileTab?.select()
     }
 
     fun replaceFragment (fragment: Fragment){
@@ -83,6 +110,17 @@ class TinderActivity : AppCompatActivity() {
             .replace(R.id.fragmentContainer, fragment)
             .commit()
     }
+
+
+    override fun onSignout() {
+        firebaseAuth.signOut()
+        startActivity(StartupActivity.newIntent(this@TinderActivity))
+        finish()
+    }
+
+    override fun onGetUserId(): String = userId.toString()
+
+    override fun getUserDatabse(): DatabaseReference = userDatabase
 
     companion object{
         fun newIntent(context: Context) = Intent(context, TinderActivity::class.java)
