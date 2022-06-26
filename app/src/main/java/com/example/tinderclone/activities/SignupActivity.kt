@@ -10,7 +10,6 @@ import com.example.tinderclone.R
 import com.example.tinderclone.util.DATA_USERS
 import com.example.tinderclone.util.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_signup.*
 
@@ -24,7 +23,7 @@ class SignupActivity : AppCompatActivity() {
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
         val user = firebaseAuth.currentUser
         if(user != null){
-            startActivity(MainActivity.newIntent(this@SignupActivity))
+            startActivity(TinderActivity.newIntent(this@SignupActivity))
             finish()
         }
     }
