@@ -7,11 +7,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.tinderclone.R
+import com.example.tinderclone.util.DATA_USERS
+import com.example.tinderclone.util.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity() {
+
+    // getting the reference of the firebase database
+    private val firebaseDatabase = FirebaseDatabase.getInstance().reference
     // creating an instance of firebase auth for authorization
     private val firebaseAuth = FirebaseAuth.getInstance();
     // creating an authentication listener which transitions the activity on login
@@ -47,6 +53,13 @@ class SignupActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if(!task.isSuccessful){
                         Toast.makeText(this@SignupActivity, "Signup error: ${task.exception?.localizedMessage}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // getting the data of the user in order to store it in the database
+                        val email = edtEmail.text.toString()
+                        val userId = firebaseAuth.currentUser?.uid?: ""
+                        val user = User(userId, "", "", email, "", "")
+                        // adding data in the firebase database
+                        firebaseDatabase.child(DATA_USERS).child(userId).setValue(user)
                     }
                 }
         }
