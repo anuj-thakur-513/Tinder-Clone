@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent"
     tools:context=".activities.SignupActivity">
+
+    <LinearLayout
+        android:layout_width="@dimen/standard_width"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/progressBarSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/edtEmail"
@@ -22,14 +36,16 @@
         android:layout_height="@dimen/standard_height"
         android:layout_gravity="center"
         android:hint="@string/hint_password"
+        android:layout_below="@+id/edtEmail"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
         style="@style/StandardButton"
+        android:layout_below="@+id/edtPassword"
         android:layout_width="@dimen/standard_width"
         android:layout_height="@dimen/standard_height"
         android:onClick="onSignup"
         android:text="@string/button_signup" />
 
-</LinearLayout>
+</RelativeLayout>

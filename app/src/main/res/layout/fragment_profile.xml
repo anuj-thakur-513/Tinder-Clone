@@ -34,10 +34,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:hint="@string/hint_name"/>
+                    android:hint="@string/hint_name"
+                    android:inputType="textPersonName" />
 
 
             </com.google.android.material.textfield.TextInputLayout>
