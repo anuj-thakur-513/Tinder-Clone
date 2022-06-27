@@ -51,7 +51,7 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
             onSignout()
         }
 
-        // getting database reference in the variable
+        // getting database reference in the variable and the child Users is included here only
         userDatabase = FirebaseDatabase.getInstance().reference.child(DATA_USERS)
 
         // dynamically creating new tabs in the tab layout
@@ -70,13 +70,6 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
         // adding tab selected listener to the tab layout
         navigationTabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                onTabSelected(tab)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
                 when(tab){
                     profileTab -> {
                         if(profileFragment == null){
@@ -101,6 +94,13 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
                     }
                 }
             }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                onTabSelected(tab)
+            }
         })
         profileTab?.select()
     }
@@ -121,6 +121,10 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
     override fun onGetUserId(): String = userId.toString()
 
     override fun getUserDatabse(): DatabaseReference = userDatabase
+
+    override fun profileComplete() {
+        swipeTab?.select()
+    }
 
     companion object{
         fun newIntent(context: Context) = Intent(context, TinderActivity::class.java)

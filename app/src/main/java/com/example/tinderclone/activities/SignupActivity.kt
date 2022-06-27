@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.tinderclone.R
-import com.example.tinderclone.util.DATA_USERS
 import com.example.tinderclone.util.User
+import com.example.tinderclone.util.DATA_USERS
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -57,7 +57,7 @@ class SignupActivity : AppCompatActivity() {
                         val email = edtEmail.text.toString()
                         val userId = firebaseAuth.currentUser?.uid?: ""
                         val user = User(userId, "", "", email, "", "")
-                        // adding data in the firebase database
+                        // adding data in the firebase database by creating the children
                         firebaseDatabase.child(DATA_USERS).child(userId).setValue(user)
                     }
                 }
