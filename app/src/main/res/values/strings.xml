@@ -7,4 +7,12 @@
     <string name="hint_password">Password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_age">Age</string>
+    <string name="hint_gender">I am a</string>
+    <string name="hint_male">Male</string>
+    <string name="hint_female">Female</string>
+    <string name="hint_interested_gender">Interested in</string>
+    <string name="btn_apply">Apply</string>
+    <string name="btn_signout">Signout</string>
 </resources>

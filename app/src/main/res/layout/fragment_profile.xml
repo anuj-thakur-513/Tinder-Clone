@@ -9,6 +9,173 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/imageViewPhoto"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="@dimen/standard_width"
+                android:paddingBottom="8dp"
+                android:src="@drawable/default_pic"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameTIL"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageViewPhoto"
+                android:paddingBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:background="@color/white"
+                    android:hint="@string/hint_name"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailTIL"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameTIL"
+                android:paddingBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:background="@color/white"
+                    android:hint="@string/hint_email"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ageTIL"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailTIL"
+                android:paddingBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="number"
+                    android:hint="@string/hint_age"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/radioLayout1"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ageTIL"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/genderTV"
+                android:layout_width="0dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:text="@string/hint_gender"
+                android:layout_height="@dimen/standard_height" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/standard_height"
+                    android:layout_weight="2"
+                    android:paddingBottom="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+
+                    <RadioButton
+                        android:id="@+id/radioMale1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_male"/>
+
+                    <RadioButton
+                        android:id="@+id/radioFemale1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_female"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/radioLayout2"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioLayout1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/preferredGenderTV"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/hint_interested_gender"
+                    android:layout_height="@dimen/standard_height" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/standard_height"
+                    android:layout_weight="2"
+                    android:paddingBottom="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+
+                    <RadioButton
+                        android:id="@+id/radioMale2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_male"/>
+
+                    <RadioButton
+                        android:id="@+id/radioFemale2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hint_female"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnApply"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="@dimen/standard_height"
+                android:layout_below="@id/radioLayout2"
+                android:text="@string/btn_apply"
+                style="@style/StandardButton"/>
+
+            <Button
+                android:id="@+id/btnSignout"
+                android:layout_width="@dimen/standard_width"
+                android:layout_height="@dimen/standard_height"
+                android:layout_below="@id/btnApply"
+                android:text="@string/btn_signout"
+                style="@style/StandardButtonGrey"/>
+
+        </RelativeLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
@@ -16,6 +183,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:visibility="gone"
         android:background="#aaaaaaaa">
 
         <ProgressBar
