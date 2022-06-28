@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.tinderclone.R
 import com.example.tinderclone.util.User
 import com.example.tinderclone.activities.TinderCallback
@@ -48,11 +49,14 @@ class ProfileFragment : Fragment() {
         progressLayout.setOnTouchListener { view, event -> true }
 
         populateInfo()
+
+        imageViewPhoto.setOnClickListener{ callback?.startActivityForPhoto() }
+
         btnApply.setOnClickListener { onApply() }
         btnSignout.setOnClickListener { callback?.onSignout() }
     }
 
-    fun populateInfo(){
+    private fun populateInfo(){
         progressLayout.visibility = View.VISIBLE
         userDatabase.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -70,7 +74,9 @@ class ProfileFragment : Fragment() {
                     if(user?.preferredGender == GENDER_MALE){
                         radioMale2.isChecked = true
                     } else if(user?.preferredGender == GENDER_FEMALE) radioFemale2.isChecked = true
-
+                    if(user?.imageUrl?.isNotEmpty()!!){
+                        populateImage(user.imageUrl)
+                    }
                     progressLayout.visibility = View.GONE
                 }
             }
@@ -82,7 +88,7 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    fun onApply(){
+    private fun onApply(){
         if(edtName.text.toString().isNullOrEmpty() || edtEmail.text.toString().isNullOrEmpty() ||
                 edtAge.text.toString().isNullOrEmpty() || radioGroup1.checkedRadioButtonId == -1 ||
                 radioGroup2.checkedRadioButtonId == -1){
@@ -106,6 +112,18 @@ class ProfileFragment : Fragment() {
 
             callback?.profileComplete()
         }
+    }
+
+    // function to update image in the image view
+    fun updateImageUri(uri: String){
+        userDatabase.child(DATA_IMAGE_URL).setValue(uri)
+        populateImage(uri)
+    }
+
+    fun populateImage(uri: String){
+        Glide.with(this)
+            .load(uri)
+            .into(imageViewPhoto)
     }
 
 }

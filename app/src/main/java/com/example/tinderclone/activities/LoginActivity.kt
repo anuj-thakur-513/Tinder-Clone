@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
     // creating an authentication listener which transitions the activity on login
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
         val user = firebaseAuth.currentUser
+        // logging in the user
         if(user != null){
             startActivity(TinderActivity.newIntent(this@LoginActivity))
             finish()

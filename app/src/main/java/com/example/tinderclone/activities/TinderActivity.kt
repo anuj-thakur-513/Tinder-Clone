@@ -1,13 +1,19 @@
 package com.example.tinderclone.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.tinderclone.R
@@ -21,8 +27,15 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.core.view.View
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import kotlinx.android.synthetic.main.activity_tinder.*
+import java.io.ByteArrayOutputStream
+import java.io.IOError
+import java.io.IOException
+
+// request code for the photo activity
+const val REQUEST_CODE_PHOTO = 100
 
 class TinderActivity : AppCompatActivity(), TinderCallback {
 
@@ -41,6 +54,9 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
     private var profileTab: TabLayout.Tab? = null
     private var swipeTab: TabLayout.Tab? = null
     private var matchesTab: TabLayout.Tab? = null
+
+    // variable for image
+    private var resultImageUrl: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +121,7 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
         profileTab?.select()
     }
 
+    // adding and replacing the fragments
     fun replaceFragment (fragment: Fragment){
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
@@ -124,6 +141,48 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
 
     override fun profileComplete() {
         swipeTab?.select()
+    }
+
+    override fun startActivityForPhoto() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_CODE_PHOTO)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PHOTO){
+            resultImageUrl = data?.data
+            storeImage()
+        }
+    }
+
+    // function which converts and stores the image in firestore database
+    private fun storeImage(){
+        if(resultImageUrl != null && userId != null){
+            // getting storage reference to store images
+            val filePath = FirebaseStorage.getInstance().reference.child("profileImage").child(userId)
+            var bitmap: Bitmap? = null
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(application.contentResolver, resultImageUrl)
+            } catch (e: IOException){
+                e.printStackTrace()
+            }
+
+            val baos = ByteArrayOutputStream()
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 20, baos)
+            val data = baos.toByteArray()
+
+            val uploadTask = filePath.putBytes(data)
+            uploadTask.addOnFailureListener{ e -> e.printStackTrace() }
+            uploadTask.addOnSuccessListener { taskSnapshot ->
+                filePath.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        profileFragment?.updateImageUri(uri.toString())
+                    }
+                    .addOnFailureListener{ e -> e.printStackTrace() }
+            }
+        }
     }
 
     companion object{
