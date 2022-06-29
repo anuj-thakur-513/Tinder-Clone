@@ -76,10 +76,6 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rotation_degrees="15.5"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-
-    </com.lorentzos.flingswipe.SwipeFlingAdapterView>
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
