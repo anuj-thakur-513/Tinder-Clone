@@ -1,35 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
     android:layout_gravity="center"
-    android:layout_width="250dp"
-    android:layout_height="170dp">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/like_dislike_height"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
 
-    <TextView
-        android:id="@+id/helloText"
-        android:textSize="40sp"
-        android:textColor="@android:color/white"
-        android:background="#E339"
-        android:gravity="center"
-        tools:text="Hello World"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="@dimen/card_dimension"
+        android:layout_height="@dimen/card_dimension"
+        android:layout_gravity="center"
+        android:background="@color/grey"
+        app:cardCornerRadius="20dp"
+        android:elevation="10dp">
 
-    <View
-        android:id="@+id/item_swipe_left_indicator"
-        android:alpha="0"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_margin="10dp"
-        android:background="#A5F" />
+        <ImageView
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"/>
 
-    <View
-        android:id="@+id/item_swipe_right_indicator"
-        android:alpha="0"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_margin="10dp"
-        android:layout_gravity="right"
-        android:background="#5AF" />
+        <LinearLayout
+            android:id="@+id/profileClickLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/like_dislike_height"
+            android:orientation="horizontal"
+            android:background="#00ffffff"
+            android:paddingLeft="8dp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
 
-</FrameLayout>
+            <TextView
+                android:id="@+id/nameTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="27sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:gravity="bottom|left"
+                android:text="Hello"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
