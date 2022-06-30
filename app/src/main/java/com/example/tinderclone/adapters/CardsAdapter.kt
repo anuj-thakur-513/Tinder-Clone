@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.tinderclone.R
 import com.example.tinderclone.util.User
 
-class CardsAdapter(context: Context, resourceId: Int, users: List<User>): ArrayAdapter<User>(context, resourceId, users) {
+class CardsAdapter(context: Context?, resourceId: Int, users: List<User>): ArrayAdapter<User>(
+    context!!, resourceId, users) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // get the current user
