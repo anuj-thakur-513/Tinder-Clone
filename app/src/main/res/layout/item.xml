@@ -28,9 +28,9 @@
         <LinearLayout
             android:id="@+id/profileClickLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/like_dislike_height"
+            android:layout_height="@dimen/card_name_height"
             android:orientation="horizontal"
-            android:background="#00ffffff"
+            android:background="#aaaaaaaa"
             android:paddingLeft="8dp"
             android:layout_gravity="bottom"
             android:gravity="bottom">
@@ -42,8 +42,10 @@
                 android:textSize="27sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:gravity="bottom|left"
-                android:text="Hello"/>
+                tools:text="Hello"/>
 
         </LinearLayout>
 
