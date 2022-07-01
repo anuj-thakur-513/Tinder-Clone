@@ -112,14 +112,14 @@ class SwipeFragment : Fragment() {
             }
 
             override fun onAdapterAboutToEmpty(p0: Int) {
-
             }
 
             override fun onScroll(p0: Float) {
-
             }
 
         })
+
+        frame.setOnItemClickListener{ position, data -> }
 
         // btn click listener for the like button
         btnLike.setOnClickListener {
