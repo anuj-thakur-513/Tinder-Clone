@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.tinderclone.R
 import com.example.tinderclone.activities.TinderCallback
+import com.example.tinderclone.activities.UserInfoActivity
 import com.example.tinderclone.adapters.CardsAdapter
 import com.example.tinderclone.util.*
 import com.google.firebase.database.DataSnapshot
@@ -119,7 +120,10 @@ class SwipeFragment : Fragment() {
 
         })
 
-        frame.setOnItemClickListener{ position, data -> }
+        frame.setOnItemClickListener{ position, data ->
+            val currentUser = (cardsAdapter as CardsAdapter).getItem(position)
+            startActivity(UserInfoActivity.newIntent(context, currentUser?.uid))
+        }
 
         // btn click listener for the like button
         btnLike.setOnClickListener {

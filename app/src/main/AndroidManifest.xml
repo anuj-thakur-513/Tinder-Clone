@@ -14,7 +14,7 @@
         android:theme="@style/Theme.TinderClone"
         tools:targetApi="31">
         <activity
-            android:name=".UserInfo"
+            android:name=".activities.UserInfoActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SignupActivity"

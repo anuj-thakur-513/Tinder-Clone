@@ -27,12 +27,12 @@ class UserInfoActivity : AppCompatActivity() {
         val userDatabase = FirebaseDatabase.getInstance().reference.child(DATA_USERS)
         userDatabase.child(userId.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                val user = snapshot as User
-                userInfoName.text = user.name
-                userInfoAge.text = user.age
-                if(user.imageUrl != null){
+                val user = snapshot.getValue(User::class.java)
+                userInfoName.text = user?.name
+                userInfoAge.text = user?.age
+                if(user?.imageUrl != null){
                     Glide.with(this@UserInfoActivity)
-                        .load(user.imageUrl)
+                        .load(user?.imageUrl)
                         .into(userInfoIV)
                 }
             }
@@ -46,8 +46,8 @@ class UserInfoActivity : AppCompatActivity() {
     companion object{
         private val PARAM_USER_ID = "User id"
 
-        fun newIntent(context: android.content.Context, userId: String?): Intent{
-            var intent = Intent(context, UserInfoActivity::class.java)
+        fun newIntent(context: android.content.Context?, userId: String?): Intent{
+            val intent = Intent(context, UserInfoActivity::class.java)
             intent.putExtra(PARAM_USER_ID, userId)
             return intent
         }
