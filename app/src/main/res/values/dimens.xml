@@ -15,4 +15,10 @@
     <dimen name="card_dimension">350dp</dimen>
     <dimen name="card_name_height">40dp</dimen>
     <dimen name="chat_image_size">100dp</dimen>
+    <dimen name="chat_margin">4dp</dimen>
+    <dimen name="send_width">100dp</dimen>
+    <dimen name="send_height">50dp</dimen>
+    <dimen name="send_button_radius">5dp</dimen>
+    <dimen name="send_height_max">130dp</dimen>
+    <dimen name="constraint_margin">8dp</dimen>
 </resources>

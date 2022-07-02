@@ -18,4 +18,6 @@
     <string name="error_incomplete_profile">Profile incomplete</string>
     <string name="no_available_users">No available users</string>
     <string name="no_matches_string">No matches</string>
+    <string name="send_btn_text">Send</string>
+    <string name="hint_message">Message</string>
 </resources>

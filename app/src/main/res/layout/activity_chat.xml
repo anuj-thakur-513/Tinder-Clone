@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ChatActivity">
+
+    <LinearLayout
+        android:id="@+id/navigationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_margin="@dimen/chat_margin"
+        android:background="@color/shadow"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/topPhotoIV"
+            android:layout_width="@dimen/navigation_height"
+            android:layout_height="@dimen/navigation_height"
+            android:layout_marginEnd="@dimen/chat_margin"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:id="@+id/topNameIV"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/navigation_height"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:paddingStart="@dimen/chat_margin"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagesRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/edtMessage"
+        app:layout_constraintTop_toBottomOf="@+id/navigationLayout">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSend"
+        style="@style/SendButton"
+        android:layout_width="@dimen/send_width"
+        android:layout_height="@dimen/send_height"
+        android:layout_margin="@dimen/constraint_margin"
+        android:onClick="onSend"
+        android:text="@string/send_btn_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/edtMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="@dimen/send_height_max"
+        android:minHeight="@dimen/send_height"
+        android:layout_margin="@dimen/constraint_margin"
+        android:padding="@dimen/chat_margin"
+        android:gravity="center_vertical"
+        android:background="@drawable/chat_box_bg"
+        android:hint="@string/hint_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSend"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
