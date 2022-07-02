@@ -13,25 +13,10 @@ import com.google.firebase.database.core.view.View
 
 class ChatsAdapter(private var chats: ArrayList<Chat>): RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
 
-
-    class ChatsViewHolder(private val view: android.view.View): RecyclerView.ViewHolder(view){
-
-        // variables to store the ids of view
-        private var layout = view.findViewById<android.view.View>(R.id.chatLayout)
-        private var image = view.findViewById<ImageView>(R.id.chatPictureIV)
-        private var name = view.findViewById<TextView>(R.id.nameTV)
-
-        fun bind(chat: Chat){
-            // setting the data in the chat items and setting the onClickListener
-            name.text = chat.name
-            if (image != null){
-                Glide.with(view)
-                    .load(chat.imageUrl)
-                    .into(image)
-            }
-
-            layout.setOnClickListener{  }
-        }
+    // adding the elements to the arrayList
+    fun addElement(chat: Chat) {
+        chats.add(chat)
+        notifyDataSetChanged()
     }
 
     // creates a view
@@ -45,4 +30,25 @@ class ChatsAdapter(private var chats: ArrayList<Chat>): RecyclerView.Adapter<Cha
 
     // return the size of chats arrayList
     override fun getItemCount(): Int  = chats.size
+
+
+    class ChatsViewHolder(private val view: android.view.View): RecyclerView.ViewHolder(view){
+
+        // variables to store the ids of view
+        private var layout = view.findViewById<android.view.View>(R.id.chatLayout)
+        private var image = view.findViewById<ImageView>(R.id.chatPictureIV)
+        private var name = view.findViewById<TextView>(R.id.chatNameTV)
+
+        fun bind(chat: Chat){
+            // setting the data in the chat items and setting the onClickListener
+            name.text = chat.name
+            if (image != null){
+                Glide.with(view)
+                    .load(chat.imageUrl)
+                    .into(image)
+            }
+
+            layout.setOnClickListener{  }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.tinderclone.fragments
 
 import android.os.Bundle
+import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,19 +28,23 @@ class SwipeFragment : Fragment() {
     // variables to hold user id and to get the database reference
     private lateinit var userId: String
     private lateinit var userDatabase: DatabaseReference
+    private lateinit var chatDatabase: DatabaseReference
 
     // variables to fill the card layout using adapter
     private var cardsAdapter: ArrayAdapter<User>? = null
     private var rowItems = ArrayList<User>()
 
-    // variable to hold preferred gender of the user
+    // variable to hold preferred gender, username and imageUrl of the user
     private var preferredGender: String? = null
+    private var username: String? = null
+    private var imageUrl: String? = null
 
 
     fun setCallback(callback: TinderCallback) {
         this.callback = callback
         userId = callback.onGetUserId()
         userDatabase = callback.getUserDatabase()
+        chatDatabase = callback.getChatDatabase()
     }
 
     override fun onCreateView(
@@ -58,6 +63,8 @@ class SwipeFragment : Fragment() {
                 // getting the user
                 val user = snapshot.getValue(User::class.java)
                 preferredGender = user?.preferredGender
+                username = user?.name
+                imageUrl = user?.imageUrl
                 populateItems()
             }
 
@@ -93,14 +100,40 @@ class SwipeFragment : Fragment() {
                     userDatabase.child(userId).child(DATA_SWIPES_RIGHT)
                         .addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
-                                if (snapshot.hasChild(selectedUserId)){
+
+                                // checking if the other user has already right swiped or not
+                                if (snapshot.hasChild(selectedUserId)) {
                                     Toast.makeText(context, "Match!", Toast.LENGTH_SHORT).show()
 
-                                    userDatabase.child(userId).child(DATA_SWIPES_RIGHT).child(selectedUserId).removeValue()
-                                    userDatabase.child(userId).child(DATA_MATCHES).child(selectedUserId).setValue(true)
-                                    userDatabase.child(selectedUserId).child(DATA_MATCHES).child(userId).setValue(true)
+                                    // push method automatically creates a unique key which is
+                                    // reference to the location
+                                    val chatKey = chatDatabase.push().key
+                                    if (chatKey != null) {
+                                        userDatabase.child(userId).child(DATA_SWIPES_RIGHT)
+                                            .child(selectedUserId).removeValue()
+                                        userDatabase.child(userId).child(DATA_MATCHES)
+                                            .child(selectedUserId).setValue(chatKey)
+                                        userDatabase.child(selectedUserId).child(DATA_MATCHES)
+                                            .child(userId).setValue(chatKey)
+
+
+                                        // adding the names and image of both users in the chat database
+                                        chatDatabase.child(chatKey).child(userId).child(DATA_NAME)
+                                            .setValue(username)
+                                        chatDatabase.child(chatKey).child(userId).child(
+                                            DATA_IMAGE_URL
+                                        ).setValue(imageUrl)
+
+                                        chatDatabase.child(chatKey).child(selectedUserId).child(
+                                            DATA_NAME
+                                        ).setValue(selectedUser.name)
+                                        chatDatabase.child(chatKey).child(selectedUserId).child(
+                                            DATA_IMAGE_URL
+                                        ).setValue(selectedUser.imageUrl)
+                                    }
                                 } else {
-                                    userDatabase.child(selectedUserId).child(DATA_SWIPES_RIGHT).child(userId).setValue(true)
+                                    userDatabase.child(selectedUserId).child(DATA_SWIPES_RIGHT)
+                                        .child(userId).setValue(true)
                                 }
                             }
 
@@ -119,21 +152,21 @@ class SwipeFragment : Fragment() {
 
         })
 
-        frame.setOnItemClickListener{ position, data ->
+        frame.setOnItemClickListener { position, data ->
             val currentUser = (cardsAdapter as CardsAdapter).getItem(position)
             startActivity(UserInfoActivity.newIntent(context, currentUser?.uid))
         }
 
         // btn click listener for the like button
         btnLike.setOnClickListener {
-            if(rowItems.isNotEmpty()){
+            if (rowItems.isNotEmpty()) {
                 frame.topCardListener.selectRight()
             }
         }
 
         // btn click listener for the dislike button
         btnDislike.setOnClickListener {
-            if(rowItems.isNotEmpty()){
+            if (rowItems.isNotEmpty()) {
                 frame.topCardListener.selectLeft()
             }
         }
