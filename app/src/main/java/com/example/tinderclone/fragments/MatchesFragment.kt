@@ -1,6 +1,7 @@
 package com.example.tinderclone.fragments
 
 import android.net.wifi.hotspot2.pps.Credential
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -40,7 +41,6 @@ class MatchesFragment : Fragment() {
         userDatabase = callback.getUserDatabase()
         chatDatabase = callback.getChatDatabase()
 
-        fetchData()
     }
 
     override fun onCreateView(
@@ -54,6 +54,8 @@ class MatchesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fetchData()
+
         // setting up the recycler view of the layout
         matchesRV.apply {
             setHasFixedSize(false)
@@ -64,6 +66,9 @@ class MatchesFragment : Fragment() {
 
     // function to fetch data and display it
     fun fetchData(){
+
+        progressBarMatches.visibility = View.VISIBLE
+
         // checking for the matches of the user
         userDatabase.child(userId).child(DATA_MATCHES).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -96,6 +101,7 @@ class MatchesFragment : Fragment() {
                         }
                     }
                 }
+                progressBarMatches.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
