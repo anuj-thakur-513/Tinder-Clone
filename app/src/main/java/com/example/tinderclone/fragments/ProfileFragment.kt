@@ -31,7 +31,7 @@ class ProfileFragment : Fragment() {
         this.callback = callback
         // getting the data using the interface
         userId = callback.onGetUserId()
-        userDatabase = callback.getUserDatabse().child(userId)
+        userDatabase = callback.getUserDatabase().child(userId)
     }
 
     override fun onCreateView(

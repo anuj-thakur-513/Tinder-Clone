@@ -7,31 +7,22 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.MediaStore
-import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.tinderclone.R
 import com.example.tinderclone.fragments.MatchesFragment
 import com.example.tinderclone.fragments.ProfileFragment
 import com.example.tinderclone.fragments.SwipeFragment
+import com.example.tinderclone.util.DATA_CHATS
 import com.example.tinderclone.util.DATA_USERS
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.core.view.View
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import kotlinx.android.synthetic.main.activity_tinder.*
 import java.io.ByteArrayOutputStream
-import java.io.IOError
 import java.io.IOException
 
 // request code for the photo activity
@@ -44,6 +35,7 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
     private val userId = firebaseAuth.currentUser?.uid
     // database reference
     private lateinit var userDatabase: DatabaseReference
+    private lateinit var chatDatabase: DatabaseReference
 
     // creating variables for the fragments
     private var profileFragment: ProfileFragment? = null
@@ -69,6 +61,8 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
 
         // getting database reference in the variable and the child Users is included here only
         userDatabase = FirebaseDatabase.getInstance().reference.child(DATA_USERS)
+        // getting database reference in the variable and the child Chats is included here only
+        chatDatabase = FirebaseDatabase.getInstance().reference.child(DATA_CHATS)
 
         // dynamically creating new tabs in the tab layout
         profileTab = navigationTabs.newTab()
@@ -128,7 +122,7 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
             .commit()
     }
 
-
+    // functions of the TinderCallback interface
     override fun onSignout() {
         firebaseAuth.signOut()
         startActivity(StartupActivity.newIntent(this@TinderActivity))
@@ -137,7 +131,9 @@ class TinderActivity : AppCompatActivity(), TinderCallback {
 
     override fun onGetUserId(): String = userId.toString()
 
-    override fun getUserDatabse(): DatabaseReference = userDatabase
+    override fun getUserDatabase(): DatabaseReference = userDatabase
+
+    override fun getChatDatabase(): DatabaseReference = chatDatabase
 
     override fun profileComplete() {
         swipeTab?.select()

@@ -6,7 +6,8 @@ import com.google.firebase.database.DatabaseReference
 interface TinderCallback {
     fun onSignout()
     fun onGetUserId(): String
-    fun getUserDatabse(): DatabaseReference
+    fun getUserDatabase(): DatabaseReference
+    fun getChatDatabase(): DatabaseReference
     fun profileComplete()
     fun startActivityForPhoto()
 }

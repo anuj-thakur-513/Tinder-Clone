@@ -1,6 +1,5 @@
 package com.example.tinderclone.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,7 +39,7 @@ class SwipeFragment : Fragment() {
     fun setCallback(callback: TinderCallback) {
         this.callback = callback
         userId = callback.onGetUserId()
-        userDatabase = callback.getUserDatabse()
+        userDatabase = callback.getUserDatabase()
     }
 
     override fun onCreateView(
