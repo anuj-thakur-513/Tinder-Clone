@@ -1,6 +1,5 @@
 package com.example.tinderclone.adapters
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tinderclone.R
 import com.example.tinderclone.util.Chat
-import com.google.firebase.database.core.view.View
 
 class ChatsAdapter(private var chats: ArrayList<Chat>): RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
 
@@ -41,10 +39,10 @@ class ChatsAdapter(private var chats: ArrayList<Chat>): RecyclerView.Adapter<Cha
 
         fun bind(chat: Chat){
             // setting the data in the chat items and setting the onClickListener
-            name.text = chat.name
+            name.text = chat.otherUserName
             if (image != null){
                 Glide.with(view)
-                    .load(chat.imageUrl)
+                    .load(chat.otherUserImageUrl)
                     .into(image)
             }
 

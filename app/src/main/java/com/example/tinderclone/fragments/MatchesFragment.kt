@@ -2,6 +2,7 @@ package com.example.tinderclone.fragments
 
 import android.net.wifi.hotspot2.pps.Credential
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,10 +70,12 @@ class MatchesFragment : Fragment() {
                 // checking if matches child has values or not
                 if (snapshot.hasChildren()){
                     snapshot.children.forEach { child ->
-                        // getting the key/id of the children one by one
+                        // getting the key/id of the source location of the children one by one
                         val matchId = child.key
+                        Log.d("KEYFORTEST", matchId.toString())
                         // setting the chatId by getting the user id of the matches section
                         val chatId = child.value.toString()
+                        Log.d("KEYFORTEST2", chatId)
 
                         // checking for the matchId
                         if (matchId?.isNotEmpty()!!){
