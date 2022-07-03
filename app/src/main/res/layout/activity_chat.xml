@@ -25,7 +25,7 @@
             android:scaleType="centerInside"/>
 
         <TextView
-            android:id="@+id/topNameIV"
+            android:id="@+id/topNameTV"
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigation_height"
             android:gravity="center_vertical"

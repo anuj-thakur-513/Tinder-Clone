@@ -17,6 +17,11 @@ class MessagesAdapter(private var messages: ArrayList<Message>, val userId: Stri
         val MESSAGE_OTHER_USER = 2
     }
 
+    fun addMessage(message: Message){
+        messages.add(message)
+        notifyDataSetChanged()
+    }
+
     class MessageViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         fun bind(message: Message){
             view.findViewById<TextView>(R.id.messageTV).text = message.message
