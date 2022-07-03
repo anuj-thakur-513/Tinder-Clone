@@ -32,4 +32,11 @@
         <item name="android:textSize">@dimen/standard_button_text_size</item>
         <item name="android:background">@drawable/send_button_rounded</item>
     </style>
+
+    <style name="ChatBubble">
+        <item name="android:textSize">@dimen/chat_text_size</item>
+        <item name="android:minHeight">@dimen/chat_standard_size</item>
+        <item name="android:maxWidth">@dimen/chat_max_size</item>
+    </style>
+
 </resources>

@@ -9,5 +9,6 @@
     <color name="grey">#cccccc</color>
     <color name="shadow">#cadddddd</color>
     <color name="green">#1CA34E</color>
+    <color name="blue">#9eaaff</color>
     <color name="transparent_grey">#efefef</color>
 </resources>

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/drawable/chat_current_message_bg_rounder.xml" value="0.105" />
+        <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/drawable/chat_other_message_bg_rounded.xml" value="0.1835" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/drawable/chatbox_bg.xml" value="0.105" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/drawable/navigation_shadow.xml" value="0.108" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/drawable/send_button_rounded.xml" value="0.105" />
@@ -20,6 +22,8 @@
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/fragment_swipe.xml" value="0.29074074074074074" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/item.xml" value="0.2861111111111111" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/item_chat.xml" value="0.3241025641025641" />
+        <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/item_current_user_message.xml" value="0.2972222222222222" />
+        <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/layout/item_other_user_message.xml" value="0.33" />
         <entry key="..\:/Projects/Android Apps/TinderClone/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
